@@ -20,6 +20,24 @@ This application is developed as the final assignment / submission for the Machi
 
 ## Setup 
 
+- This application requires python packages to process data and build model: <br>
+    (<Fill the list>) <br>
+- Create a virtual environment and install the packages 
+
+```console 
+# create a virtual environment
+$ python3 -m venv .venv
+
+# In Linux / Mac OS
+$ source .venv/bin/activate 
+
+# Upgrade pip for better results 
+$ pip install --upgrade pip
+
+# Install requirements
+$ pip install -r requirements.txt
+```
+
 ## Requirements 
 
 ## Models 

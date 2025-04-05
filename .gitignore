@@ -1,3 +1,14 @@
-__pycache__ 
+# Python code compiled cache
+__pycache__/
+
+# internal folder to maintain directory structure in macbook 
 .DS_Store
+
+# dataset files 
 *.csv
+
+# commands used (for internal use)
+commands.txt
+
+# Python virtual environment 
+.venv/ 
