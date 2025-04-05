@@ -5,11 +5,9 @@ This repository contains the source code and setup instructions for a stand alon
 
 This application is developed as the final assignment / submission for the Machine Learning Operations course, offered at Department of Data Science and AI, IIT Madras. 
 
-
 **Course Instructor**: Dr Sudarsun Santhiappan<br>
 **Submitted by**: Nandhakishore C S <br>
 **Roll Number**: DA24M011 <br>
-
 
 ## Placeholder Sections 
 (Yet to be filled)
@@ -37,13 +35,11 @@ $ pip install --upgrade pip
 # Install requirements
 $ pip install -r requirements.txt
 ```
-
 ## Requirements 
 
 The following software / frameworks are needed to run this app: 
 - **Python** v3.13.2
 - **Docker** v27.5.1
-
 
 ## Models 
 
