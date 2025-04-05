@@ -40,6 +40,11 @@ $ pip install -r requirements.txt
 
 ## Requirements 
 
+The following software / frameworks are needed to run this app: 
+- **Python** v3.13.2
+- **Docker** v27.5.1
+
+
 ## Models 
 
 ## Tools used 
