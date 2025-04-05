@@ -1,3 +1,0 @@
-# for local machine, not in kaggle 
-PyYaml
-kagglehub
