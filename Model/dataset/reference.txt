@@ -1,0 +1,4 @@
+Data set downlaoded from Kaggle
+The zip file is not uploaded, only the source file and the modified dataset is uploaded in GitHub
+
+https://www.kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020?resource=download

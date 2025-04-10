@@ -1,0 +1,171 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+  
+.form-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    flex: 1;
+}
+  
+.ipl-logo {
+    height: 60px;
+    width: auto;
+}
+  
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #f9f9f9;
+}
+
+h3 {
+    text-align: left;
+    margin-bottom: 18px;
+    color: #f9f9f9;
+}
+
+h4 {
+    text-align: left;
+    margin-bottom: 16px;
+    color: #f9f9f9;
+}
+
+a {
+    color: inherit; /* Uses the color of the parent element */
+    text-decoration: none; /* Removes underline */
+}
+  
+a:visited {
+    color: inherit; /* Prevents color change after link is clicked */
+}
+  
+a:hover {
+    text-decoration: underline; /* Optional: adds underline on hover */
+}
+  
+.input-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #f1f1f1;
+}
+
+select, input[type="text"], input[type="number"] {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+select:focus, input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.error-message {
+    color: #ff5e5e;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
+    min-height: 1.2em;
+}
+
+button[type="submit"] {
+    background-color: #ff5722;
+    border: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #e64a19;
+}
+
+button[type="submit"]:focus, button[type="submit"]:active {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.4);
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    margin: 15px auto;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #ff9800;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+to {
+    transform: rotate(360deg);
+}
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0px 0px 5px #000000aa);
+}
+
+.input-group input:invalid {
+    border: 1px solid red;
+}  
