@@ -1,5 +1,7 @@
-# for local machine, not in kaggle 
-PyYaml
-kagglehub
-pandas 
-ipykernel
+torch
+pandas
+numpy
+mlflow
+fastapi
+uvicorn
+pytest
