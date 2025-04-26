@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/7b010b7403a446c2a817f4c0294ba275/artifacts
+end_time: 1745701266491
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: 7b010b7403a446c2a817f4c0294ba275
+run_name: exultant-doe-774
+run_uuid: 7b010b7403a446c2a817f4c0294ba275
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701266296
+status: 3
+tags: []
+user_id: nandhakishorecs

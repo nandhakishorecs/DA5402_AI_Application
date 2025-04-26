@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/8c18151565514875a7c1327b135aadca/artifacts
+end_time: 1745701219438
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: 8c18151565514875a7c1327b135aadca
+run_name: whimsical-snipe-943
+run_uuid: 8c18151565514875a7c1327b135aadca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701219246
+status: 3
+tags: []
+user_id: nandhakishorecs

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/005e5ed57da74b478f93366b78502220/artifacts
+end_time: 1745701267080
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: 005e5ed57da74b478f93366b78502220
+run_name: redolent-shad-353
+run_uuid: 005e5ed57da74b478f93366b78502220
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701266887
+status: 3
+tags: []
+user_id: nandhakishorecs

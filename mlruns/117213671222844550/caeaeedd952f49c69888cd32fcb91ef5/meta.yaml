@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/caeaeedd952f49c69888cd32fcb91ef5/artifacts
+end_time: 1745701321608
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: caeaeedd952f49c69888cd32fcb91ef5
+run_name: burly-fly-685
+run_uuid: caeaeedd952f49c69888cd32fcb91ef5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701321455
+status: 3
+tags: []
+user_id: nandhakishorecs

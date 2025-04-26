@@ -1,2 +1,7 @@
 pandas
 numpy
+# airflow
+torch
+scikit-learn
+tqdm
+mlflow

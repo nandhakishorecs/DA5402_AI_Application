@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/f4024481018f439681804842807e1932/artifacts
+end_time: 1745701266294
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: f4024481018f439681804842807e1932
+run_name: painted-auk-621
+run_uuid: f4024481018f439681804842807e1932
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701266139
+status: 3
+tags: []
+user_id: nandhakishorecs

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/nandhakishorecs/Documents/IITM/Jan_2025/DA5402/DA5402_AI_Application/mlruns/117213671222844550/0f222bad244d43c8973c6d5d3a8338a7/artifacts
+end_time: 1745701218766
+entry_point_name: ''
+experiment_id: '117213671222844550'
+lifecycle_stage: active
+run_id: 0f222bad244d43c8973c6d5d3a8338a7
+run_name: placid-frog-52
+run_uuid: 0f222bad244d43c8973c6d5d3a8338a7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745701217927
+status: 3
+tags: []
+user_id: nandhakishorecs
