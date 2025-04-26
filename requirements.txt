@@ -1,7 +1,2 @@
-torch
 pandas
 numpy
-mlflow
-fastapi
-uvicorn
-pytest

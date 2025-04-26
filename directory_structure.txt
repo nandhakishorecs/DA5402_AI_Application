@@ -1,0 +1,28 @@
+ipl_score_predictor/
+├── dags/                           # Airflow DAGs and dataset files
+│   ├── data_pipeline.py            # Airflow DAG for data ingestion/preprocessing
+│   ├── IPL Ball-by-Ball 2008-2020.csv  # Kaggle dataset (ball-by-ball data)
+│   └── IPL Matches 2008-2020.csv   # Kaggle dataset (match metadata)
+├── src/                            # Source code for model and backend
+│   ├── model.py                    # PyTorch model training script
+│   └── main.py                     # FastAPI backend
+├── frontend/                       # React frontend
+│   └── index.html                  # Single-page React UI
+├── tests/                          # Test scripts
+│   ├── test_model.py               # Unit tests for PyTorch model
+│   └── test_api.py                 # Unit tests for FastAPI API
+├── docs/                           # Documentation
+│   ├── architecture_diagram.png    # System architecture diagram
+│   ├── hld.md                      # High-Level Design
+│   ├── lld.md                      # Low-Level Design
+│   ├── test_plan.md                # Test plan
+│   └── user_manual.md              # User manual
+├── data/                           # Temporary data output (optional, if not using /tmp)
+├── models/                         # Trained model
+│   └── ipl_score_model.pth         # Saved PyTorch model
+├── Dockerfile                      # Docker configuration for backend
+├── docker-compose.yml              # Docker Compose for backend/frontend
+├── requirements.txt                # Python dependencies
+├── .dvc/                           # DVC configuration for data/model versioning
+├── .gitignore                      # Git ignore file
+└── README.md                       # Project overview
