@@ -1,0 +1,45 @@
+,match_id,inning,total_runs,is_wicket,over,team1,team2,toss_winner,venue,batting_strength,bowling_strength,target_score
+879,1304050,1,158,1,19,Lucknow Super Giants,Gujarat Lions,Gujarat Lions,"Wankhede Stadium, Mumbai",0.5454545454545454,0.1733333333333333,158
+882,1304053,1,210,1,19,Chennai Super Kings,Lucknow Super Giants,Lucknow Super Giants,"Brabourne Stadium, Mumbai",0.5798319327731093,0.5454545454545454,210
+887,1304058,1,169,1,19,Lucknow Super Giants,Sunrisers Hyderabad,Sunrisers Hyderabad,"Dr DY Patil Sports Academy, Mumbai",0.5454545454545454,0.3424124513618677,169
+890,1304061,1,149,1,19,Delhi Capitals,Lucknow Super Giants,Lucknow Super Giants,"Dr DY Patil Sports Academy, Mumbai",0.1904761904761904,0.5454545454545454,149
+895,1304066,1,165,1,19,Rajasthan Royals,Lucknow Super Giants,Lucknow Super Giants,"Wankhede Stadium, Mumbai",0.5067873303167421,0.5454545454545454,165
+901,1304072,1,199,1,19,Lucknow Super Giants,Mumbai Indians,Mumbai Indians,"Brabourne Stadium, Mumbai",0.5454545454545454,0.5517241379310345,199
+906,1304077,1,181,1,19,Royal Challengers Bengaluru,Lucknow Super Giants,Lucknow Super Giants,"Dr DY Patil Sports Academy, Mumbai",0.0274509803921568,0.5454545454545454,181
+912,1304083,1,168,1,19,Lucknow Super Giants,Mumbai Indians,Mumbai Indians,"Wankhede Stadium, Mumbai",0.5454545454545454,0.5517241379310345,168
+917,1304088,1,153,1,19,Lucknow Super Giants,Punjab Kings,Punjab Kings,"Maharashtra Cricket Association Stadium, Pune",0.5454545454545454,0.0975609756097561,153
+920,1304091,1,195,1,19,Lucknow Super Giants,Delhi Capitals,Lucknow Super Giants,"Wankhede Stadium, Mumbai",0.5454545454545454,0.1904761904761904,195
+928,1304099,1,176,1,19,Lucknow Super Giants,Kolkata Knight Riders,Kolkata Knight Riders,"Maharashtra Cricket Association Stadium, Pune",0.5454545454545454,0.5219123505976095,176
+932,1304103,1,144,1,19,Gujarat Lions,Lucknow Super Giants,Gujarat Lions,"Maharashtra Cricket Association Stadium, Pune",0.1733333333333333,0.5454545454545454,144
+938,1304109,1,178,1,19,Rajasthan Royals,Lucknow Super Giants,Rajasthan Royals,"Brabourne Stadium, Mumbai",0.5067873303167421,0.5454545454545454,178
+941,1304112,1,210,0,19,Lucknow Super Giants,Kolkata Knight Riders,Lucknow Super Giants,"Dr DY Patil Sports Academy, Mumbai",0.5454545454545454,0.5219123505976095,210
+947,1312198,1,207,1,19,Royal Challengers Bengaluru,Lucknow Super Giants,Lucknow Super Giants,"Eden Gardens, Kolkata",0.0274509803921568,0.5454545454545454,207
+952,1359477,1,193,1,19,Lucknow Super Giants,Delhi Capitals,Delhi Capitals,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.1904761904761904,193
+955,1359480,1,217,1,19,Chennai Super Kings,Lucknow Super Giants,Lucknow Super Giants,"MA Chidambaram Stadium, Chepauk, Chennai",0.5798319327731093,0.5454545454545454,217
+959,1359484,1,121,1,19,Sunrisers Hyderabad,Lucknow Super Giants,Sunrisers Hyderabad,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.3424124513618677,0.5454545454545454,121
+964,1359489,1,212,1,19,Royal Challengers Bengaluru,Lucknow Super Giants,Lucknow Super Giants,"M Chinnaswamy Stadium, Bengaluru",0.0274509803921568,0.5454545454545454,212
+970,1359495,1,159,1,19,Lucknow Super Giants,Punjab Kings,Punjab Kings,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.0975609756097561,159
+975,1359500,1,154,1,19,Lucknow Super Giants,Rajasthan Royals,Rajasthan Royals,"Sawai Mansingh Stadium, Jaipur",0.5454545454545454,0.5067873303167421,154
+979,1359504,1,135,1,19,Gujarat Lions,Lucknow Super Giants,Gujarat Lions,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.1733333333333333,0.5454545454545454,135
+987,1359512,1,257,1,19,Lucknow Super Giants,Punjab Kings,Punjab Kings,"Punjab Cricket Association IS Bindra Stadium, Mohali",0.5454545454545454,0.0975609756097561,257
+992,1359517,1,126,1,19,Royal Challengers Bengaluru,Lucknow Super Giants,Royal Challengers Bengaluru,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.0274509803921568,0.5454545454545454,126
+994,1359519,1,125,1,19,Lucknow Super Giants,Chennai Super Kings,Chennai Super Kings,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.5798319327731093,125
+1000,1359525,1,227,1,19,Gujarat Lions,Lucknow Super Giants,Lucknow Super Giants,"Narendra Modi Stadium, Ahmedabad",0.1733333333333333,0.5454545454545454,227
+1007,1359532,1,182,1,19,Sunrisers Hyderabad,Lucknow Super Giants,Sunrisers Hyderabad,"Rajiv Gandhi International Stadium, Uppal, Hyderabad",0.3424124513618677,0.5454545454545454,182
+1012,1359537,1,177,1,19,Lucknow Super Giants,Mumbai Indians,Mumbai Indians,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.5517241379310345,177
+1017,1359542,1,176,1,19,Lucknow Super Giants,Kolkata Knight Riders,Kolkata Knight Riders,"Eden Gardens, Kolkata",0.5454545454545454,0.5219123505976095,176
+1021,1370351,1,182,1,19,Mumbai Indians,Lucknow Super Giants,Mumbai Indians,"MA Chidambaram Stadium, Chepauk, Chennai",0.5517241379310345,0.5454545454545454,182
+1027,1422122,1,193,1,19,Rajasthan Royals,Lucknow Super Giants,Rajasthan Royals,"Sawai Mansingh Stadium, Jaipur",0.5067873303167421,0.5454545454545454,193
+1034,1422129,1,199,1,19,Lucknow Super Giants,Punjab Kings,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.0975609756097561,199
+1038,1422133,1,181,1,19,Lucknow Super Giants,Royal Challengers Bengaluru,Royal Challengers Bengaluru,"M Chinnaswamy Stadium, Bengaluru",0.5454545454545454,0.0274509803921568,181
+1044,1422139,1,163,1,19,Lucknow Super Giants,Gujarat Lions,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.1733333333333333,163
+1049,1426264,1,167,1,19,Lucknow Super Giants,Delhi Capitals,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.1904761904761904,167
+1051,1426266,1,161,1,19,Lucknow Super Giants,Kolkata Knight Riders,Kolkata Knight Riders,"Eden Gardens, Kolkata",0.5454545454545454,0.5219123505976095,161
+1057,1426272,1,176,1,19,Chennai Super Kings,Lucknow Super Giants,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5798319327731093,0.5454545454545454,176
+1062,1426277,1,210,1,19,Chennai Super Kings,Lucknow Super Giants,Lucknow Super Giants,"MA Chidambaram Stadium, Chepauk, Chennai",0.5798319327731093,0.5454545454545454,210
+1067,1426282,1,196,1,19,Lucknow Super Giants,Rajasthan Royals,Rajasthan Royals,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5454545454545454,0.5067873303167421,196
+1071,1426286,1,144,1,19,Mumbai Indians,Lucknow Super Giants,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5517241379310345,0.5454545454545454,144
+1077,1426292,1,235,1,19,Kolkata Knight Riders,Lucknow Super Giants,Lucknow Super Giants,"Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",0.5219123505976095,0.5454545454545454,235
+1080,1426295,1,165,1,19,Lucknow Super Giants,Sunrisers Hyderabad,Lucknow Super Giants,"Rajiv Gandhi International Stadium, Uppal, Hyderabad",0.5454545454545454,0.3424124513618677,165
+1086,1426302,1,208,1,19,Delhi Capitals,Lucknow Super Giants,Lucknow Super Giants,"Arun Jaitley Stadium, Delhi",0.1904761904761904,0.5454545454545454,208
+1088,1426305,1,214,1,19,Lucknow Super Giants,Mumbai Indians,Mumbai Indians,"Wankhede Stadium, Mumbai",0.5454545454545454,0.5517241379310345,214
