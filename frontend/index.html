@@ -1,0 +1,832 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Target Score Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">Cricket Target Score Predictor</h1>
+        <form id="prediction-form" class="space-y-4">
+            <div>
+                <label for="team1" class="block text-sm font-medium text-gray-700">Team 1</label>
+                <select id="team1" name="team1" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    <option value="" disabled selected>Select Team 1</option>
+                </select>
+            </div>
+            <div>
+                <label for="team2" class="block text-sm font-medium text-gray-700">Team 2</label>
+                <select id="team2" name="team2" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    <option value="" disabled selected>Select Team 2</option>
+                </select>
+            </div>
+            <div>
+                <label for="toss_winner" class="block text-sm font-medium text-gray-700">Toss Winner</label>
+                <select id="toss_winner" name="toss_winner" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    <option value="" disabled selected>Select Toss Winner</option>
+                </select>
+            </div>
+            <div>
+                <label for="venue" class="block text-sm font-medium text-gray-700">Venue</label>
+                <select id="venue" name="venue" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    <option value="" disabled selected>Select Venue</option>
+                </select>
+            </div>
+            <div>
+                <label for="inning" class="block text-sm font-medium text-gray-700">Inning (1 or 2)</label>
+                <input type="number" id="inning" name="inning" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="1" max="2">
+            </div>
+            <div>
+                <label for="total_runs" class="block text-sm font-medium text-gray-700">Total Runs</label>
+                <input type="number" id="total_runs" name="total_runs" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0">
+            </div>
+            <div>
+                <label for="is_wicket" class="block text-sm font-medium text-gray-700">Is Wicket (0 or 1)</label>
+                <input type="number" id="is_wicket" name="is_wicket" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="1">
+            </div>
+            <div>
+                <label for="over" class="block text-sm font-medium text-gray-700">Over (0 to 20)</label>
+                <input type="number" id="over" name="over" step="0.1" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="20">
+            </div>
+            <div>
+                <label for="team1_games_played" class="block text-sm font-medium text-gray-700">Team 1 Games Played (0 to 70)</label>
+                <input type="range" id="team1_games_played" name="team1_games_played" min="0" max="70" value="0" class="mt-1 block w-full">
+                <span id="team1_games_played_value" class="text-sm text-gray-600">0</span>
+            </div>
+            <div>
+                <label for="team1_games_won" class="block text-sm font-medium text-gray-700">Team 1 Games Won (0 to Games Played)</label>
+                <input type="range" id="team1_games_won" name="team1_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
+                <span id="team1_games_won_value" class="text-sm text-gray-600">0</span>
+            </div>
+            <div>
+                <label for="team2_games_played" class="block text-sm font-medium text-gray-700">Team 2 Games Played (0 to 70)</label>
+                <input type="range" id="team2_games_played" name="team2_games_played" min="0" max="70" value="0" class="mt-1 block w-full">
+                <span id="team2_games_played_value" class="text-sm text-gray-600">0</span>
+            </div>
+            <div>
+                <label for="team2_games_won" class="block text-sm font-medium text-gray-700">Team 2 Games Won (0 to Games Played)</label>
+                <input type="range" id="team2_games_won" name="team2_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
+                <span id="team2_games_won_value" class="text-sm text-gray-600">0</span>
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Predict</button>
+        </form>
+        <div id="error-message" class="mt-4 text-red-600 hidden"></div>
+        <div id="result" class="mt-4 text-green-600 hidden"></div>
+    </div>
+
+    <script>
+        // Store teams for dynamic dropdown population
+        let allTeams = [];
+
+        // Fetch dropdown options on page load
+        async function populateDropdowns() {
+            try {
+                const response = await fetch('/options');
+                const options = await response.json();
+
+                // Filter out teams containing "Pune" or "Kochi" (case-insensitive)
+                allTeams = options.teams.filter(team => 
+                    !team.toLowerCase().includes('pune') && 
+                    !team.toLowerCase().includes('kochi')
+                );
+
+                // Populate team1 dropdown
+                const team1Select = document.getElementById('team1');
+                allTeams.forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team;
+                    option.textContent = team;
+                    team1Select.appendChild(option);
+                });
+
+                // Populate team2 dropdown (initially all filtered teams)
+                updateTeam2Options();
+                updateTossWinnerOptions();
+
+                // Populate venue dropdown
+                const venueSelect = document.getElementById('venue');
+                options.venues.forEach(venue => {
+                    const option = document.createElement('option');
+                    option.value = venue;
+                    option.textContent = venue;
+                    venueSelect.appendChild(option);
+                });
+
+                // Update team2 and toss_winner when team1 changes
+                team1Select.addEventListener('change', () => {
+                    updateTeam2Options();
+                    updateTossWinnerOptions();
+                });
+
+                // Update toss_winner when team2 changes
+                document.getElementById('team2').addEventListener('change', updateTossWinnerOptions);
+            } catch (err) {
+                document.getElementById('error-message').textContent = 'Failed to load dropdown options.';
+                document.getElementById('error-message').classList.remove('hidden');
+            }
+        }
+
+        // Update team2 dropdown to exclude team1 selection
+        function updateTeam2Options() {
+            const team1Select = document.getElementById('team1');
+            const team2Select = document.getElementById('team2');
+            const selectedTeam1 = team1Select.value;
+
+            // Preserve team2 selection if valid
+            const currentTeam2 = team2Select.value;
+
+            // Clear team2 options
+            team2Select.innerHTML = '<option value="" disabled selected>Select Team 2</option>';
+
+            // Add teams except selected team1
+            allTeams.forEach(team => {
+                if (team !== selectedTeam1) {
+                    const option = document.createElement('option');
+                    option.value = team;
+                    option.textContent = team;
+                    team2Select.appendChild(option);
+                }
+            });
+
+            // Restore team2 selection if it’s still valid
+            if (currentTeam2 && currentTeam2 !== selectedTeam1 && allTeams.includes(currentTeam2)) {
+                team2Select.value = currentTeam2;
+            }
+        }
+
+        // Update toss_winner dropdown to include only team1 and team2
+        function updateTossWinnerOptions() {
+            const team1Select = document.getElementById('team1');
+            const team2Select = document.getElementById('team2');
+            const tossWinnerSelect = document.getElementById('toss_winner');
+            const selectedTeam1 = team1Select.value;
+            const selectedTeam2 = team2Select.value;
+
+            // Clear toss_winner options
+            tossWinnerSelect.innerHTML = '<option value="" disabled selected>Select Toss Winner</option>';
+
+            // Add team1 if selected
+            if (selectedTeam1) {
+                const option = document.createElement('option');
+                option.value = selectedTeam1;
+                option.textContent = selectedTeam1;
+                tossWinnerSelect.appendChild(option);
+            }
+
+            // Add team2 if selected and different from team1
+            if (selectedTeam2 && selectedTeam2 !== selectedTeam1) {
+                const option = document.createElement('option');
+                option.value = selectedTeam2;
+                option.textContent = selectedTeam2;
+                tossWinnerSelect.appendChild(option);
+            }
+        }
+
+        // Initialize sliders and update their displayed values
+        const sliders = [
+            { id: 'team1_games_played', valueId: 'team1_games_played_value', wonSliderId: 'team1_games_won' },
+            { id: 'team1_games_won', valueId: 'team1_games_won_value' },
+            { id: 'team2_games_played', valueId: 'team2_games_played_value', wonSliderId: 'team2_games_won' },
+            { id: 'team2_games_won', valueId: 'team2_games_won_value' }
+        ];
+
+        sliders.forEach(slider => {
+            const input = document.getElementById(slider.id);
+            const valueSpan = document.getElementById(slider.valueId);
+
+            // Update displayed value and validate on slider change
+            input.addEventListener('input', () => {
+                valueSpan.textContent = input.value;
+
+                // Update max value of games_won slider based on games_played
+                if (slider.wonSliderId) {
+                    const wonSlider = document.getElementById(slider.wonSliderId);
+                    const maxValue = Math.min(input.value, 70); // Cap at 70
+                    wonSlider.max = maxValue;
+                    if (parseInt(wonSlider.value) > parseInt(maxValue)) {
+                        wonSlider.value = maxValue;
+                        document.getElementById(`${slider.wonSliderId}_value`).textContent = maxValue;
+                    }
+                    // Check for games_won > games_played
+                    validateGames();
+                }
+            });
+        });
+
+        // Validate games_won <= games_played
+        function validateGames() {
+            const errorMessage = document.getElementById('error-message');
+            const team1Played = parseInt(document.getElementById('team1_games_played').value);
+            const team1Won = parseInt(document.getElementById('team1_games_won').value);
+            const team2Played = parseInt(document.getElementById('team2_games_played').value);
+            const team2Won = parseInt(document.getElementById('team2_games_won').value);
+
+            if (team1Won > team1Played) {
+                errorMessage.textContent = 'Team 1 games won cannot exceed games played.';
+                errorMessage.classList.remove('hidden');
+                return false;
+            }
+            if (team2Won > team2Played) {
+                errorMessage.textContent = 'Team 2 games won cannot exceed games played.';
+                errorMessage.classList.remove('hidden');
+                return false;
+            }
+            errorMessage.classList.add('hidden');
+            return true;
+        }
+
+        // Form submission
+        const form = document.getElementById('prediction-form');
+        const errorMessage = document.getElementById('error-message');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {
+                team1: formData.get('team1'),
+                team2: formData.get('team2'),
+                toss_winner: formData.get('toss_winner'),
+                venue: formData.get('venue'),
+                inning: parseInt(formData.get('inning')),
+                total_runs: parseInt(formData.get('total_runs')),
+                is_wicket: parseInt(formData.get('is_wicket')),
+                over: parseFloat(formData.get('over')),
+                team1_games_played: parseInt(formData.get('team1_games_played')),
+                team1_games_won: parseInt(formData.get('team1_games_won')),
+                team2_games_played: parseInt(formData.get('team2_games_played')),
+                team2_games_won: parseInt(formData.get('team2_games_won')),
+            };
+
+            // Client-side validation
+            let error = '';
+            if (!data.team1) error = 'Team 1 is required.';
+            else if (!data.team2) error = 'Team 2 is required.';
+            else if (data.team1 === data.team2) error = 'Team 1 and Team 2 must be different.';
+            else if (!data.toss_winner) error = 'Toss winner is required.';
+            else if (!data.venue) error = 'Venue is required.';
+            else if (![1, 2].includes(data.inning)) error = 'Inning must be 1 or 2.';
+            else if (data.total_runs < 0 || isNaN(data.total_runs)) error = 'Total runs must be non-negative.';
+            else if (![0, 1].includes(data.is_wicket)) error = 'Is wicket must be 0 or 1.';
+            else if (data.over < 0 || data.over > 20 || isNaN(data.over)) error = 'Over must be between 0 and 20.';
+            else if (data.team1_games_played < 0 || isNaN(data.team1_games_played)) error = 'Team 1 games played must be non-negative.';
+            else if (data.team1_games_won < 0 || isNaN(data.team1_games_won)) error = 'Team 1 games won must be non-negative.';
+            else if (data.team2_games_played < 0 || isNaN(data.team2_games_played)) error = 'Team 2 games played must be non-negative.';
+            else if (data.team2_games_won < 0 || isNaN(data.team2_games_won)) error = 'Team 2 games won must be non-negative.';
+            else if (!validateGames()) return; // Games won > played handled by validateGames
+
+            if (error) {
+                errorMessage.textContent = error;
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Round the predicted score to the nearest integer
+                    const predictedScore = Math.round(result.predicted_target_score);
+                    resultDiv.textContent = `Predicted Target Score: ${predictedScore}`;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    errorMessage.textContent = result.detail || 'An error occurred.';
+                    errorMessage.classList.remove('hidden');
+                }
+            } catch (err) {
+                errorMessage.textContent = 'Failed to connect to the server.';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+
+        // Populate dropdowns on page load
+        populateDropdowns();
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Target Score Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1593341646782-e0b91526e204?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: rgba(243, 244, 246, 0.5); /* Light mode fallback */
+            font-family: 'Inter', sans-serif;
+        }
+        /* Fallback background image in case the primary fails */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/1920x1080?text=Cricket+Background');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            opacity: 0; /* Only show if primary fails */
+        }
+        .dark body {
+            background-color: rgba(17, 24, 39, 0.5); /* Dark mode fallback */
+        }
+        .bg-overlay {
+            background-color: rgba(255, 255, 255, 0.9); /* Light mode form background */
+        }
+        .dark .bg-overlay {
+            background-color: rgba(31, 41, 55, 0.9); /* Dark mode form background */
+        }
+        /* Improved font styles for dark mode */
+        .dark h1 {
+            font-weight: 600;
+            font-size: 1.75rem;
+            color: #F3F4F6;
+        }
+        .dark label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #D1D5DB;
+        }
+        .dark input,
+        .dark select {
+            font-weight: 400;
+            font-size: 0.95rem;
+            color: #F3F4F6;
+            background-color: #374151;
+        }
+        .dark span {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #D1D5DB;
+        }
+        .dark #error-message {
+            font-weight: 500;
+            color: #FCA5A5;
+        }
+        .dark #result {
+            font-weight: 500;
+            color: #86EFAC;
+        }
+        .dark #about-modal p {
+            font-weight: 400;
+            font-size: 0.95rem;
+            color: #D1D5DB;
+        }
+        .dark #about-modal h2 {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #F3F4F6;
+        }
+        /* About button styles for both modes */
+        #about-button {
+            background-color: #4F46E5; /* Indigo-600 */
+            color: #F3F4F6;
+            border: 1px solid transparent;
+        }
+        #about-button:hover {
+            background-color: #4338CA; /* Indigo-700 */
+        }
+        #about-button:focus {
+            outline: 2px solid #6366F1; /* Indigo-500 */
+            outline-offset: 2px;
+        }
+        .dark #about-button {
+            background-color: #4B5EAA; /* Darker indigo for dark mode */
+            border: 1px solid #6B7280; /* Subtle border for contrast */
+        }
+        .dark #about-button:hover {
+            background-color: #5C6BC0; /* Lighter indigo on hover */
+        }
+        .dark #about-button:focus {
+            background-color: #4B5EAA;
+            outline: 2px solid #818CF8; /* Indigo outline for focus */
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <!-- About Button -->
+    <button id="about-button" class="fixed top-4 right-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+        About
+    </button>
+
+    <!-- Dark Mode Toggle -->
+    <div class="fixed top-4 left-4 flex items-center space-x-2">
+        <label for="dark-mode-toggle" class="text-sm font-medium text-gray-700 dark:text-gray-200">Dark Mode</label>
+        <input type="checkbox" id="dark-mode-toggle" class="sr-only">
+        <div class="w-10 h-6 bg-gray-300 rounded-full shadow-inner flex items-center cursor-pointer">
+            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 toggle-circle"></div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">About Cricket Target Score Predictor</h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                The Cricket Target Score Predictor is a machine learning-based web application designed to predict the target score in T20 cricket matches. It uses historical IPL data to estimate scores based on team performance, venue, innings, and match statistics.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Features include:
+                - Dynamic team and venue selection
+                - Real-time input validation
+                - Team strength calculation using games played and won
+                - User-friendly interface with dark mode support
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Built with FastAPI, Tailwind CSS, and PyTorch, this app was developed as part of an AI application course at IITM.
+            </p>
+            <button id="close-modal" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Form -->
+    <div class="p-8 rounded-lg shadow-lg w-full max-w-4xl bg-overlay">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Cricket Target Score Predictor</h1>
+        <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="team1" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 1</label>
+                <select id="team1" name="team1" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                    <option value="" disabled selected>Select Team 1</option>
+                </select>
+            </div>
+            <div>
+                <label for="team2" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 2</label>
+                <select id="team2" name="team2" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                    <option value="" disabled selected>Select Team 2</option>
+                </select>
+            </div>
+            <div>
+                <label for="toss_winner" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Toss Winner</label>
+                <select id="toss_winner" name="toss_winner" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                    <option value="" disabled selected>Select Toss Winner</option>
+                </select>
+            </div>
+            <div>
+                <label for="venue" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Venue</label>
+                <select id="venue" name="venue" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required>
+                    <option value="" disabled selected>Select Venue</option>
+                </select>
+            </div>
+            <div>
+                <label for="inning" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Inning (1 or 2)</label>
+                <input type="number" id="inning" name="inning" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required min="1" max="2">
+            </div>
+            <div>
+                <label for="total_runs" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Total Runs (0 to 249)</label>
+                <input type="number" id="total_runs" name="total_runs" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required min="0" max="249">
+            </div>
+            <div>
+                <label for="is_wicket" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Wickets Fallen (0 to 9)</label>
+                <input type="number" id="is_wicket" name="is_wicket" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required min="0" max="9">
+            </div>
+            <div>
+                <label for="over" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Over (0.0 to 20.0)</label>
+                <input type="number" id="over" name="over" step="0.1" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200" required min="0" max="20" placeholder="e.g., 5.3">
+            </div>
+            <div>
+                <label for="team1_games_played" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 1 Games Played (0 to 14)</label>
+                <input type="range" id="team1_games_played" name="team1_games_played" min="0" max="14" value="0" class="mt-1 block w-full">
+                <span id="team1_games_played_value" class="text-sm text-gray-600 dark:text-gray-400">0</span>
+            </div>
+            <div>
+                <label for="team1_games_won" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 1 Games Won (0 to Games Played)</label>
+                <input type="range" id="team1_games_won" name="team1_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
+                <span id="team1_games_won_value" class="text-sm text-gray-600 dark:text-gray-400">0</span>
+            </div>
+            <div>
+                <label for="team2_games_played" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 2 Games Played (0 to 14)</label>
+                <input type="range" id="team2_games_played" name="team2_games_played" min="0" max="14" value="0" class="mt-1 block w-full">
+                <span id="team2_games_played_value" class="text-sm text-gray-600 dark:text-gray-400">0</span>
+            </div>
+            <div>
+                <label for="team2_games_won" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Team 2 Games Won (0 to Games Played)</label>
+                <input type="range" id="team2_games_won" name="team2_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
+                <span id="team2_games_won_value" class="text-sm text-gray-600 dark:text-gray-400">0</span>
+            </div>
+            <div class="md:col-span-2">
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Predict
+                </button>
+            </div>
+        </form>
+        <div id="error-message" class="mt-4 text-red-600 dark:text-red-400 hidden"></div>
+        <div id="result" class="mt-4 text-green-600 dark:text-green-400 hidden"></div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const htmlElement = document.documentElement;
+        const toggleCircle = document.querySelector('.toggle-circle');
+
+        // Load saved theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+            darkModeToggle.checked = true;
+            toggleCircle.classList.add('translate-x-6');
+        }
+
+        darkModeToggle.addEventListener('change', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+            if (darkModeToggle.checked) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                toggleCircle.classList.add('translate-x-6');
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                toggleCircle.classList.remove('translate-x-6');
+            }
+        });
+
+        // About Modal
+        const aboutButton = document.getElementById('about-button');
+        const aboutModal = document.getElementById('about-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        aboutButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling to avoid triggering theme change
+            aboutModal.classList.remove('hidden');
+        });
+
+        closeModalButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+            aboutModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                aboutModal.classList.add('hidden');
+            }
+        });
+
+        // Store teams for dynamic dropdown population
+        let allTeams = [];
+
+        // Fetch dropdown options on page load
+        async function populateDropdowns() {
+            try {
+                const response = await fetch('/options');
+                const options = await response.json();
+
+                // Filter out teams containing "Pune" or "Kochi" (case-insensitive)
+                allTeams = options.teams.filter(team => 
+                    !team.toLowerCase().includes('pune') && 
+                    !team.toLowerCase().includes('kochi')
+                );
+
+                // Populate team1 dropdown
+                const team1Select = document.getElementById('team1');
+                allTeams.forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team;
+                    option.textContent = team;
+                    team1Select.appendChild(option);
+                });
+
+                // Populate team2 dropdown (initially all filtered teams)
+                updateTeam2Options();
+                updateTossWinnerOptions();
+
+                // Populate venue dropdown
+                const venueSelect = document.getElementById('venue');
+                options.venues.forEach(venue => {
+                    const option = document.createElement('option');
+                    option.value = venue;
+                    option.textContent = venue;
+                    venueSelect.appendChild(option);
+                });
+
+                // Update team2 and toss_winner when team1 changes
+                team1Select.addEventListener('change', () => {
+                    updateTeam2Options();
+                    updateTossWinnerOptions();
+                });
+
+                // Update toss_winner when team2 changes
+                document.getElementById('team2').addEventListener('change', updateTossWinnerOptions);
+            } catch (err) {
+                document.getElementById('error-message').textContent = 'Failed to load dropdown options.';
+                document.getElementById('error-message').classList.remove('hidden');
+            }
+        }
+
+        // Update team2 dropdown to exclude team1 selection
+        function updateTeam2Options() {
+            const team1Select = document.getElementById('team1');
+            const team2Select = document.getElementById('team2');
+            const selectedTeam1 = team1Select.value;
+
+            // Preserve team2 selection if valid
+            const currentTeam2 = team2Select.value;
+
+            // Clear team2 options
+            team2Select.innerHTML = '<option value="" disabled selected>Select Team 2</option>';
+
+            // Add teams except selected team1
+            allTeams.forEach(team => {
+                if (team !== selectedTeam1) {
+                    const option = document.createElement('option');
+                    option.value = team;
+                    option.textContent = team;
+                    team2Select.appendChild(option);
+                }
+            });
+
+            // Restore team2 selection if it’s still valid
+            if (currentTeam2 && currentTeam2 !== selectedTeam1 && allTeams.includes(currentTeam2)) {
+                team2Select.value = currentTeam2;
+            }
+        }
+
+        // Update toss_winner dropdown to include only team1 and team2
+        function updateTossWinnerOptions() {
+            const team1Select = document.getElementById('team1');
+            const team2Select = document.getElementById('team2');
+            const tossWinnerSelect = document.getElementById('toss_winner');
+            const selectedTeam1 = team1Select.value;
+            const selectedTeam2 = team2Select.value;
+
+            // Clear toss_winner options
+            tossWinnerSelect.innerHTML = '<option value="" disabled selected>Select Toss Winner</option>';
+
+            // Add team1 if selected
+            if (selectedTeam1) {
+                const option = document.createElement('option');
+                option.value = selectedTeam1;
+                option.textContent = selectedTeam1;
+                tossWinnerSelect.appendChild(option);
+            }
+
+            // Add team2 if selected and different from team1
+            if (selectedTeam2 && selectedTeam2 !== selectedTeam1) {
+                const option = document.createElement('option');
+                option.value = selectedTeam2;
+                option.textContent = selectedTeam2;
+                tossWinnerSelect.appendChild(option);
+            }
+        }
+
+        // Initialize sliders and update their displayed values
+        const sliders = [
+            { id: 'team1_games_played', valueId: 'team1_games_played_value', wonSliderId: 'team1_games_won' },
+            { id: 'team1_games_won', valueId: 'team1_games_won_value' },
+            { id: 'team2_games_played', valueId: 'team2_games_played_value', wonSliderId: 'team2_games_won' },
+            { id: 'team2_games_won', valueId: 'team2_games_won_value' }
+        ];
+
+        sliders.forEach(slider => {
+            const input = document.getElementById(slider.id);
+            const valueSpan = document.getElementById(slider.valueId);
+
+            // Update displayed value and validate on slider change
+            input.addEventListener('input', () => {
+                valueSpan.textContent = input.value;
+
+                // Update max value of games_won slider based on games_played
+                if (slider.wonSliderId) {
+                    const wonSlider = document.getElementById(slider.wonSliderId);
+                    const maxValue = Math.min(input.value, 14); // Cap at 14
+                    wonSlider.max = maxValue;
+                    if (parseInt(wonSlider.value) > parseInt(maxValue)) {
+                        wonSlider.value = maxValue;
+                        document.getElementById(`${slider.wonSliderId}_value`).textContent = maxValue;
+                    }
+                    // Check for games_won > games_played
+                    validateGames();
+                }
+            });
+        });
+
+        // Validate games_won <= games_played
+        function validateGames() {
+            const errorMessage = document.getElementById('error-message');
+            const team1Played = parseInt(document.getElementById('team1_games_played').value);
+            const team1Won = parseInt(document.getElementById('team1_games_won').value);
+            const team2Played = parseInt(document.getElementById('team2_games_played').value);
+            const team2Won = parseInt(document.getElementById('team2_games_won').value);
+
+            if (team1Won > team1Played) {
+                errorMessage.textContent = 'Team 1 games won cannot exceed games played.';
+                errorMessage.classList.remove('hidden');
+                return false;
+            }
+            if (team2Won > team2Played) {
+                errorMessage.textContent = 'Team 2 games won cannot exceed games played.';
+                errorMessage.classList.remove('hidden');
+                return false;
+            }
+            errorMessage.classList.add('hidden');
+            return true;
+        }
+
+        // Form submission
+        const form = document.getElementById('prediction-form');
+        const errorMessage = document.getElementById('error-message');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {
+                team1: formData.get('team1'),
+                team2: formData.get('team2'),
+                toss_winner: formData.get('toss_winner'),
+                venue: formData.get('venue'),
+                inning: parseInt(formData.get('inning')),
+                total_runs: parseInt(formData.get('total_runs')),
+                is_wicket: parseInt(formData.get('is_wicket')),
+                over: parseFloat(formData.get('over')),
+                team1_games_played: parseInt(formData.get('team1_games_played')),
+                team1_games_won: parseInt(formData.get('team1_games_won')),
+                team2_games_played: parseInt(formData.get('team2_games_played')),
+                team2_games_won: parseInt(formData.get('team2_games_won')),
+            };
+
+            // Client-side validation
+            let error = '';
+            if (!data.team1) error = 'Team 1 is required.';
+            else if (!data.team2) error = 'Team 2 is required.';
+            else if (data.team1 === data.team2) error = 'Team 1 and Team 2 must be different.';
+            else if (!data.toss_winner) error = 'Toss winner is required.';
+            else if (!data.venue) error = 'Venue is required.';
+            else if (![1, 2].includes(data.inning)) error = 'Inning must be 1 or 2.';
+            else if (data.total_runs < 0 || data.total_runs >= 250 || isNaN(data.total_runs)) error = 'Total runs must be between 0 and 249.';
+            else if (data.is_wicket < 0 || data.is_wicket > 9 || isNaN(data.is_wicket)) error = 'Wickets fallen must be between 0 and 9.';
+            else if (data.over < 0 || data.over > 20 || isNaN(data.over)) error = 'Over must be between 0 and 20.';
+            else if (data.team1_games_played < 0 || data.team1_games_played > 14 || isNaN(data.team1_games_played)) error = 'Team 1 games played must be between 0 and 14.';
+            else if (data.team1_games_won < 0 || data.team1_games_won > 14 || isNaN(data.team1_games_won)) error = 'Team 1 games won must be between 0 and 14.';
+            else if (data.team2_games_played < 0 || data.team2_games_played > 14 || isNaN(data.team2_games_played)) error = 'Team 2 games played must be between 0 and 14.';
+            else if (data.team2_games_won < 0 || data.team2_games_won > 14 || isNaN(data.team2_games_won)) error = 'Team 2 games won must be between 0 and 14.';
+            else if (!validateGames()) return; // Games won > played handled by validateGames
+
+            if (error) {
+                errorMessage.textContent = error;
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Round the predicted score to the nearest integer
+                    const predictedScore = Math.round(result.predicted_target_score);
+                    resultDiv.textContent = `Predicted Target Score: ${predictedScore}`;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    errorMessage.textContent = result.detail || 'An error occurred.';
+                    errorMessage.classList.remove('hidden');
+                }
+            } catch (err) {
+                errorMessage.textContent = 'Failed to connect to the server.';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+
+        // Populate dropdowns on page load
+        populateDropdowns();
+
+        // Ensure background image loads or falls back
+        const img = new Image();
+        img.src = 'https://images.unsplash.com/photo-1593341646782-e0b91526e204?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80';
+        img.onerror = () => {
+            document.body.style.backgroundImage = 'url(https://via.placeholder.com/1920x1080?text=Cricket+Background)';
+        };
+    </script>
+</body>
+</html>
