@@ -5,3 +5,7 @@ torch
 scikit-learn
 tqdm
 mlflow
+fastapi 
+uvicorn 
+requests
+prometheus_client

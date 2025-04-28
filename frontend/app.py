@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
@@ -11,6 +12,10 @@ import numpy as np
 from model1 import CricketTargetScorePredictor
 
 app = FastAPI()
+current_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_path = os.path.join(current_dir, "..", "frontend")
+
+app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
@@ -87,8 +92,16 @@ async def predict(data: PredictionInput):
             raise HTTPException(status_code=400, detail="Total runs must be non-negative.")
         if input_dict['is_wicket'] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
             raise HTTPException(status_code=400, detail="Is_wicket must be in the range 0 to 9.")
-        if not (0 <= input_dict['over'] <= 20):
+        
+        # Validate over: must be between 0 and 20, with valid decimal increments (0.0, 0.1, 0.2, 0.3, 0.4, 0.5)
+        over = input_dict['over']
+        if not (0 <= over <= 20):
             raise HTTPException(status_code=400, detail="Over must be between 0 and 20.")
+        integer_part = int(over)
+        decimal_part = round(over - integer_part, 1)
+        if decimal_part not in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]:
+            raise HTTPException(status_code=400, detail="Over decimal part must be one of [0.0, 0.1, 0.2, 0.3, 0.4, 0.5].")
+
         if input_dict['team1_games_played'] < 0:
             raise HTTPException(status_code=400, detail="Team 1 games played must be non-negative.")
         if input_dict['team1_games_won'] < 0 or input_dict['team1_games_won'] > input_dict['team1_games_played']:
@@ -121,7 +134,7 @@ async def predict(data: PredictionInput):
 
         # Make prediction
         prediction = predictor.predict(df)
-        return {"predicted_target_score": np.floor(float(prediction[0]))}
+        return {"predicted_target_score": np.abs(np.floor(float(prediction[0])))}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
