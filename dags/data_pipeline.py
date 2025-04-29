@@ -164,6 +164,39 @@ def drop_data():
         logger.error(f"Error dropping data in dataset: {str(e)}")
         raise
 
+def merge_dataframes(df_list, merge_on):
+    if not df_list:
+        return None
+    
+    # Verify that all DataFrames have the merge column
+    for df in df_list:
+        if merge_on not in df.columns:
+            raise ValueError(f"Column {merge_on} not found in one of the DataFrames")
+    
+    # Start with the first DataFrame
+    result = df_list[0]
+    
+    # Merge with remaining DataFrames
+    for df in df_list[1:]:
+        result = pd.merge(result, df, on=merge_on, how='outer')
+    
+    return result
+
+def merge(): 
+    try:
+        logger.info("merging new IPL dataset...")
+        ball_by_ball = pd.read_csv(os.path.join(OUTPUT_DIR, 'deliveries.csv'))
+        matches = pd.read_csv(os.path.join(OUTPUT_DIR, 'matches.csv'))
+
+        df = merge_dataframes(ball_by_ball, matches)
+        df.to_csv(os.path.join(OUTPUT_DIR, 'ipl_data_drift_processed.csv'), index=False)        
+
+        logger.info("Datasets merged successfully.")
+
+    except Exception as e:
+        logger.error(f"Error preprocessing data: {str(e)}")
+        raise
+
 def preprocess_data():
     """Preprocess IPL dataset to create features for model training."""
     try:
