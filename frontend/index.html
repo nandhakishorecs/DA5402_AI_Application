@@ -1,410 +1,9 @@
-<!-- 
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Target Score Predictor</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-image: url('/static/3991.jpg');
-            background-repeat: no-repeat;
-            background-size: 125% 125% ; /* or contain, or 100% 100% */
-            background-position: center;
-            background-attachment: fixed;
-            background-color: rgba(30, 92, 226, 0.5); /* Dark mode fallback with opacity */
-            font-family: 'Inter', sans-serif;
-        }
-        .bg-overlay {
-            background-color: rgba(157, 198, 255, 0.9); /* Dark mode form background */
-        }
-        h1 {
-            font-weight: 600;
-            font-size: 1.75rem;
-            color: #000000;
-        }
-        label {
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #000000;
-        }
-        input,
-        select {
-            font-weight: 400;
-            font-size: 0.95rem;
-            color: #000000;
-            background-color: #e1ecff;
-        }
-        span {
-            font-weight: 400;
-            font-size: 0.85rem;
-            color: #D1D5DB;
-        }
-        #error-message {
-            font-weight: 500;
-            color: #f80000;
-        }
-        #result {
-            font-weight: 500;
-            color: #86EFAC;
-        }
-        #about-modal p {
-            font-weight: 400;
-            font-size: 0.95rem;
-            color: #D1D5DB;
-        }
-        #about-modal h2 {
-            font-weight: 600;
-            font-size: 1.25rem;
-            color: #F3F4F6;
-        }
-    </style>
-</head>
-<body class="min-h-screen flex items-center justify-center">
-    About Button
-    <button id="about-button" class="fixed top-4 right-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        About
-    </button>
-
-    About Modal
-    <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h2 class="text-xl font-bold mb-4 text-white">About Cricket Target Score Predictor</h2>
-            <p class="text-gray-300 mb-4">
-                The Cricket Target Score Predictor is a machine learning-based web application designed to predict the target score in T20 cricket matches. It uses historical IPL data to estimate scores based on team performance, venue, innings, and match statistics.
-            </p>
-            <p class="text-gray-300 mb-4">
-                Features include:
-                - Dynamic team and venue selection
-                - Real-time input validation
-                - Team strength calculation using games played and won
-                - User-friendly interface with dark mode support
-            </p>
-            <p class="text-gray-300 mb-4">
-                Built with FastAPI, Tailwind CSS, and PyTorch, this app was developed as part of an AI application course at IITM.
-            </p>
-            <button id="close-modal" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Close
-            </button>
-        </div>
-    </div>
-
-    
-    <div class="p-8 rounded-lg shadow-lg w-full max-w-4xl bg-overlay">
-        <h1 class="text-2xl font-bold mb-6 text-center">Cricket Target Score Predictor</h1>
-        <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label for="team1" class="block text-sm font-medium">Team 1</label>
-                <select id="team1" name="team1" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Team 1</option>
-                </select>
-            </div>
-            <div>
-                <label for="team2" class="block text-sm font-medium">Team 2</label>
-                <select id="team2" name="team2" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Team 2</option>
-                </select>
-            </div>
-            <div>
-                <label for="toss_winner" class="block text-sm font-medium">Toss Winner</label>
-                <select id="toss_winner" name="toss_winner" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Toss Winner</option>
-                </select>
-            </div>
-            <div>
-                <label for="venue" class="block text-sm font-medium">Venue</label>
-                <select id="venue" name="venue" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Venue</option>
-                </select>
-            </div>
-            <div>
-                <label for="inning" class="block text-sm font-medium">Inning (1 or 2)</label>
-                <input type="number" id="inning" name="inning" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="1" max="2">
-            </div>
-            <div>
-                <label for="total_runs" class="block text-sm font-medium">Total Runs (0 to 249)</label>
-                <input type="number" id="total_runs" name="total_runs" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="249">
-            </div>
-            <div>
-                <label for="is_wicket" class="block text-sm font-medium">Wickets Fallen (0 to 9)</label>
-                <input type="number" id="is_wicket" name="is_wicket" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="9">
-            </div>
-            <div>
-                <label for="over" class="block text-sm font-medium">Over (0.0 to 20.0)</label>
-                <input type="number" id="over" name="over" step="0.1" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="20" placeholder="e.g., 5.3">
-            </div>
-            <div>
-                <label for="team1_games_played" class="block text-sm font-medium">Team 1 Games Played (0 to 14)</label>
-                <input type="range" id="team1_games_played" name="team1_games_played" min="0" max="14" value="0" class="mt-1 block w-full">
-                <span id="team1_games_played_value" class="text-sm">0</span>
-            </div>
-            <div>
-                <label for="team1_games_won" class="block text-sm font-medium">Team 1 Games Won (0 to Games Played)</label>
-                <input type="range" id="team1_games_won" name="team1_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
-                <span id="team1_games_won_value" class="text-sm">0</span>
-            </div>
-            <div>
-                <label for="team2_games_played" class="block text-sm font-medium">Team 2 Games Played (0 to 14)</label>
-                <input type="range" id="team2_games_played" name="team2_games_played" min="0" max="14" value="0" class="mt-1 block w-full">
-                <span id="team2_games_played_value" class="text-sm">0</span>
-            </div>
-            <div>
-                <label for="team2_games_won" class="block text-sm font-medium">Team 2 Games Won (0 to Games Played)</label>
-                <input type="range" id="team2_games_won" name="team2_games_won" min="0" max="0" value="0" class="mt-1 block w-full">
-                <span id="team2_games_won_value" class="text-sm">0</span>
-            </div>
-            <div class="md:col-span-2">
-                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Predict
-                </button>
-            </div>
-        </form>
-        <div id="error-message" class="mt-4 hidden"></div>
-        <div id="result" class="mt-4 hidden"></div>
-    </div>
-
-    <script>
-        // About Modal
-        const aboutButton = document.getElementById('about-button');
-        const aboutModal = document.getElementById('about-modal');
-        const closeModalButton = document.getElementById('close-modal');
-
-        aboutButton.addEventListener('click', () => {
-            aboutModal.classList.remove('hidden');
-        });
-
-        closeModalButton.addEventListener('click', () => {
-            aboutModal.classList.add('hidden');
-        });
-
-        aboutModal.addEventListener('click', (e) => {
-            if (e.target === aboutModal) {
-                aboutModal.classList.add('hidden');
-            }
-        });
-
-        // Store teams for dynamic dropdown population
-        let allTeams = [];
-
-        // Fetch dropdown options on page load
-        async function populateDropdowns() {
-            try {
-                const response = await fetch('/options');
-                const options = await response.json();
-
-                allTeams = options.teams.filter(team => 
-                    !team.toLowerCase().includes('pune') && 
-                    !team.toLowerCase().includes('kochi')
-                );
-
-                const team1Select = document.getElementById('team1');
-                allTeams.forEach(team => {
-                    const option = document.createElement('option');
-                    option.value = team;
-                    option.textContent = team;
-                    team1Select.appendChild(option);
-                });
-
-                updateTeam2Options();
-                updateTossWinnerOptions();
-
-                const venueSelect = document.getElementById('venue');
-                options.venues.forEach(venue => {
-                    const option = document.createElement('option');
-                    option.value = venue;
-                    option.textContent = venue;
-                    venueSelect.appendChild(option);
-                });
-
-                team1Select.addEventListener('change', () => {
-                    updateTeam2Options();
-                    updateTossWinnerOptions();
-                });
-
-                document.getElementById('team2').addEventListener('change', updateTossWinnerOptions);
-            } catch (err) {
-                document.getElementById('error-message').textContent = 'Failed to load dropdown options.';
-                document.getElementById('error-message').classList.remove('hidden');
-            }
-        }
-
-        function updateTeam2Options() {
-            const team1Select = document.getElementById('team1');
-            const team2Select = document.getElementById('team2');
-            const selectedTeam1 = team1Select.value;
-            const currentTeam2 = team2Select.value;
-
-            team2Select.innerHTML = '<option value="" disabled selected>Select Team 2</option>';
-
-            allTeams.forEach(team => {
-                if (team !== selectedTeam1) {
-                    const option = document.createElement('option');
-                    option.value = team;
-                    option.textContent = team;
-                    team2Select.appendChild(option);
-                }
-            });
-
-            if (currentTeam2 && currentTeam2 !== selectedTeam1 && allTeams.includes(currentTeam2)) {
-                team2Select.value = currentTeam2;
-            }
-        }
-
-        function updateTossWinnerOptions() {
-            const team1Select = document.getElementById('team1');
-            const team2Select = document.getElementById('team2');
-            const tossWinnerSelect = document.getElementById('toss_winner');
-            const selectedTeam1 = team1Select.value;
-            const selectedTeam2 = team2Select.value;
-
-            tossWinnerSelect.innerHTML = '<option value="" disabled selected>Select Toss Winner</option>';
-
-            if (selectedTeam1) {
-                const option = document.createElement('option');
-                option.value = selectedTeam1;
-                option.textContent = selectedTeam1;
-                tossWinnerSelect.appendChild(option);
-            }
-
-            if (selectedTeam2 && selectedTeam2 !== selectedTeam1) {
-                const option = document.createElement('option');
-                option.value = selectedTeam2;
-                option.textContent = selectedTeam2;
-                tossWinnerSelect.appendChild(option);
-            }
-        }
-
-        const sliders = [
-            { id: 'team1_games_played', valueId: 'team1_games_played_value', wonSliderId: 'team1_games_won' },
-            { id: 'team1_games_won', valueId: 'team1_games_won_value' },
-            { id: 'team2_games_played', valueId: 'team2_games_played_value', wonSliderId: 'team2_games_won' },
-            { id: 'team2_games_won', valueId: 'team2_games_won_value' }
-        ];
-
-        sliders.forEach(slider => {
-            const input = document.getElementById(slider.id);
-            const valueSpan = document.getElementById(slider.valueId);
-
-            input.addEventListener('input', () => {
-                valueSpan.textContent = input.value;
-
-                if (slider.wonSliderId) {
-                    const wonSlider = document.getElementById(slider.wonSliderId);
-                    const maxValue = Math.min(input.value, 14);
-                    wonSlider.max = maxValue;
-                    if (parseInt(wonSlider.value) > parseInt(maxValue)) {
-                        wonSlider.value = maxValue;
-                        document.getElementById(`${slider.wonSliderId}_value`).textContent = maxValue;
-                    }
-                    validateGames();
-                }
-            });
-        });
-
-        function validateGames() {
-            const errorMessage = document.getElementById('error-message');
-            const team1Played = parseInt(document.getElementById('team1_games_played').value);
-            const team1Won = parseInt(document.getElementById('team1_games_won').value);
-            const team2Played = parseInt(document.getElementById('team2_games_played').value);
-            const team2Won = parseInt(document.getElementById('team2_games_won').value);
-
-            if (team1Won > team1Played) {
-                errorMessage.textContent = 'Team 1 games won cannot exceed games played.';
-                errorMessage.classList.remove('hidden');
-                return false;
-            }
-            if (team2Won > team2Played) {
-                errorMessage.textContent = 'Team 2 games won cannot exceed games played.';
-                errorMessage.classList.remove('hidden');
-                return false;
-            }
-            errorMessage.classList.add('hidden');
-            return true;
-        }
-
-        const form = document.getElementById('prediction-form');
-        const errorMessage = document.getElementById('error-message');
-        const resultDiv = document.getElementById('result');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorMessage.classList.add('hidden');
-            resultDiv.classList.add('hidden');
-
-            const formData = new FormData(form);
-            const data = {
-                team1: formData.get('team1'),
-                team2: formData.get('team2'),
-                toss_winner: formData.get('toss_winner'),
-                venue: formData.get('venue'),
-                inning: parseInt(formData.get('inning')),
-                total_runs: parseInt(formData.get('total_runs')),
-                is_wicket: parseInt(formData.get('is_wicket')),
-                over: parseFloat(formData.get('over')),
-                team1_games_played: parseInt(formData.get('team1_games_played')),
-                team1_games_won: parseInt(formData.get('team1_games_won')),
-                team2_games_played: parseInt(formData.get('team2_games_played')),
-                team2_games_won: parseInt(formData.get('team2_games_won')),
-            };
-
-            let error = '';
-            if (!data.team1) error = 'Team 1 is required.';
-            else if (!data.team2) error = 'Team 2 is required.';
-            else if (data.team1 === data.team2) error = 'Team 1 and Team 2 must be different.';
-            else if (!data.toss_winner) error = 'Toss winner is required.';
-            else if (!data.venue) error = 'Venue is required.';
-            else if (![1, 2].includes(data.inning)) error = 'Inning must be 1 or 2.';
-            else if (data.total_runs < 0 || data.total_runs >= 250 || isNaN(data.total_runs)) error = 'Total runs must be between 0 and 249.';
-            else if (data.is_wicket < 0 || data.is_wicket > 9 || isNaN(data.is_wicket)) error = 'Wickets fallen must be between 0 and 9.';
-            else if (data.over < 0 || data.over > 20 || isNaN(data.over)) error = 'Over must be between 0 and 20.';
-            else if (data.team1_games_played < 0 || data.team1_games_played > 14 || isNaN(data.team1_games_played)) error = 'Team 1 games played must be between 0 and 14.';
-            else if (data.team1_games_won < 0 || data.team1_games_won > 14 || isNaN(data.team1_games_won)) error = 'Team 1 games won must be between 0 and 14.';
-            else if (data.team2_games_played < 0 || data.team2_games_played > 14 || isNaN(data.team2_games_played)) error = 'Team 2 games played must be between 0 and 14.';
-            else if (data.team2_games_won < 0 || data.team2_games_won > 14 || isNaN(data.team2_games_won)) error = 'Team 2 games won must be between 0 and 14.';
-            else if (!validateGames()) return;
-
-            if (error) {
-                errorMessage.textContent = error;
-                errorMessage.classList.remove('hidden');
-                return;
-            }
-
-            try {
-                const response = await fetch('/predict', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    const predictedScore = Math.round(result.predicted_target_score);
-                    resultDiv.textContent = `Predicted Target Score: ${predictedScore}`;
-                    resultDiv.classList.remove('hidden');
-                } else {
-                    errorMessage.textContent = result.detail || 'An error occurred.';
-                    errorMessage.classList.remove('hidden');
-                }
-            } catch (err) {
-                errorMessage.textContent = 'Failed to connect to the server.';
-                errorMessage.classList.remove('hidden');
-            }
-        });
-
-        populateDropdowns();
-    </script>
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Target Score Predictor</title>
+    <title>IPL Score Predictor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -440,7 +39,7 @@
         span {
             font-weight: 400;
             font-size: 0.85rem;
-            color: #D1D5DB;
+            color: #0658d3;
         }
         #error-message {
             font-weight: 500;
@@ -476,9 +75,9 @@
     <!-- About Modal -->
     <div id="about-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h2 class="text-xl font-bold mb-4 text-white">About Cricket Target Score Predictor</h2>
+            <h2 class="text-xl font-bold mb-4 text-white">About IPL Score Predictor</h2>
             <p class="text-gray-300 mb-4">
-                The Cricket Target Score Predictor is a machine learning-based web application designed to predict the target score in T20 cricket matches. It uses historical IPL data to estimate scores based on team performance, venue, innings, and match statistics.
+                The IPL Score Predictor is a machine learning-based web application designed to predict the target score in T20 cricket matches. It uses historical IPL data to estimate scores based on team performance, venue, innings, and match statistics.
             </p>
             <p class="text-gray-300 mb-4">
                 Features include:
@@ -498,19 +97,19 @@
 
     <!-- Main Form -->
     <div class="p-8 rounded-lg shadow-lg w-full max-w-4xl bg-overlay">
-        <h1 class="text-2xl font-bold mb-6 text-center">Cricket Target Score Predictor</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">IPL Score Predictor</h1>
         <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label for="team1" class="block text-sm font-medium">Team 1</label>
+                <label for="team1" class="block text-sm font-medium">Batting Team</label>
                 <select id="team1" name="team1" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Team 1</option>
+                    <option value="" disabled selected>Batting Team</option>
                 </select>
                 <span id="team1-error" class="error-message"></span>
             </div>
             <div>
-                <label for="team2" class="block text-sm font-medium">Team 2</label>
+                <label for="team2" class="block text-sm font-medium">Bowling Team</label>
                 <select id="team2" name="team2" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="" disabled selected>Select Team 2</option>
+                    <option value="" disabled selected>Bowling Team</option>
                 </select>
                 <span id="team2-error" class="error-message"></span>
             </div>
@@ -529,12 +128,12 @@
                 <span id="venue-error" class="error-message"></span>
             </div>
             <div>
-                <label for="inning" class="block text-sm font-medium">Inning (1 or 2)</label>
+                <label for="inning" class="block text-sm font-medium">Inning (Enter 1 or 2)</label>
                 <input type="number" id="inning" name="inning" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="1" max="2">
                 <span id="inning-error" class="error-message"></span>
             </div>
             <div>
-                <label for="total_runs" class="block text-sm font-medium">Total Runs (0 to 249)</label>
+                <label for="total_runs" class="block text-sm font-medium">Total Runs scored by Batting Team (0 to 249)</label>
                 <input type="number" id="total_runs" name="total_runs" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="249">
                 <span id="total_runs-error" class="error-message"></span>
             </div>
@@ -544,7 +143,7 @@
                 <span id="is_wicket-error" class="error-message"></span>
             </div>
             <div>
-                <label for="over" class="block text-sm font-medium">Over (0.0 to 20.0)</label>
+                <label for="over" class="block text-sm font-medium">Overs Bowled (0.0 to 20.0)</label>
                 <input type="number" id="over" name="over" step="0.1" class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required min="0" max="20" placeholder="e.g., 5.3">
                 <span id="over-error" class="error-message"></span>
             </div>
@@ -662,7 +261,7 @@
             const selectedTeam1 = team1Select.value;
             const currentTeam2 = team2Select.value;
 
-            team2Select.innerHTML = '<option value="" disabled selected>Select Team 2</option>';
+            team2Select.innerHTML = '<option value="" disabled selected>Bowling Team </option>';
 
             allTeams.forEach(team => {
                 if (team !== selectedTeam1) {
