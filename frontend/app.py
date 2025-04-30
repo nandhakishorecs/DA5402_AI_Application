@@ -13,7 +13,13 @@ import time
 import random
 
 # Import the CricketTargetScorePredictor class from src/model.py
+import sys 
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
 from model1 import CricketTargetScorePredictor
+
+# from frontend.model0 import CricketTargetScorePredictor
 
 app = FastAPI()
 current_dir = os.path.dirname(os.path.abspath(__file__))

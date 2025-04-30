@@ -1,6 +1,14 @@
 import pytest
 from fastapi.testclient import TestClient
-from frontend import app  # Replace 'main' with your FastAPI app's filename (without .py)
+
+import sys 
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend')))
+
+import warnings
+warnings.filterwarnings('ignore')
+
+from app import app
 
 client = TestClient(app)
 
@@ -9,7 +17,7 @@ def test_predict_success():
         "team1": "Chennai Super Kings",
         "team2": "Mumbai Indians",
         "toss_winner": "Chennai Super Kings",
-        "venue": "Wankhede Stadium",
+        "venue": "SuperSport Park, South Africa",
         "inning": 1,
         "total_runs": 85,
         "is_wicket": 3,
@@ -22,5 +30,5 @@ def test_predict_success():
 
     response = client.post("/predict", json=valid_input)
     assert response.status_code == 200
-    assert "predicted_score" in response.json()
-    assert isinstance(response.json()["predicted_score"], (int, float))
+    assert "predicted_target_score" in response.json()
+    assert isinstance(response.json()["predicted_target_score"], (int, float))
